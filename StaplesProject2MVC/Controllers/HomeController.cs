@@ -16,7 +16,7 @@ namespace StaplesProject2MVC.Controllers
         public IActionResult Index()
         {
             var pokemon = Pokedex.Pokemons.OrderBy(p => p.Id).ToList();
-            return View();
+            return View(pokemon);
         }
 
         public IActionResult Delete(int id) {
@@ -59,7 +59,7 @@ namespace StaplesProject2MVC.Controllers
                 
             } else { return View("PokemonBuilder", p); }
             
-            return View("Index");
+            return View("Index", Pokedex.Pokemons.ToList());
         }
     }
 }
