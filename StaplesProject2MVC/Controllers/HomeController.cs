@@ -6,7 +6,7 @@ namespace StaplesProject2MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private PokemonDBContext Pokedex {  get; set; }
+        private PokemonDBContext Pokedex { get; set; }
 
         public HomeController(PokemonDBContext context)
         {
@@ -25,6 +25,11 @@ namespace StaplesProject2MVC.Controllers
             Pokedex.SaveChanges();
             var p = Pokedex.Pokemons.ToList();
             return View("Index", p);
+        }
+
+        [HttpGet] 
+        public IActionResult Add(){
+            return View("PokemonBuilder");
         }
 
         [HttpGet]
@@ -51,8 +56,10 @@ namespace StaplesProject2MVC.Controllers
                     Pokedex.Pokemons.Add(p);
                 }
 
-                return View("Index");
-            }
+                
+            } else { return View("PokemonBuilder", p); }
+            
+            return View("Index");
         }
     }
 }
