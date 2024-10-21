@@ -1,8 +1,24 @@
-﻿@{
+﻿@model List<Pokemon>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<table>
+    @foreach (Pokemon p in Model)
+    {
+        <tr>
+            <td>@p.Id</td>
+            <td>@p.Name</td>
+            <td>@p.Hp</td>
+            <td>@p.Attack</td>
+            <td>@p.Defense</td>
+            <td>@p.SpAttack</td>
+            <td>@p.SpDefense</td>
+            <td>@p.Speed</td>
+            <td><a asp-action="Edit" asp-route-id="@p.Id">Edit</a></td>
+            <td><a asp-action="Delete" asp-route-id="@p.Id">Delete</a></td>
+        </tr>
+    }
+</table>
+<br />
+<a asp-action="Add">Add a pokemon</a>
