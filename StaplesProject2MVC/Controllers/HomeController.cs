@@ -43,23 +43,18 @@ namespace StaplesProject2MVC.Controllers
         {
             if(ModelState.IsValid)
             {
-                var pokemonList = Pokedex.Pokemons.ToList();
-                List<int> IDlist = new List<int>();
-
-                foreach (var pokemon in pokemonList) { 
-                    IDlist.Add(pokemon.Id);
-                }
-
-                if(IDlist.Contains(p.Id)) {
-                    Pokedex.Pokemons.Update(p);
-                } else { 
-                    Pokedex.Pokemons.Add(p);
-                }
-
                 
+                if(p.Id == 0) {
+                    Pokedex.Pokemons.Add(p);
+                } else { 
+                    Pokedex.Pokemons.Update(p);
+                }
+                Pokedex.SaveChanges();
+                var poke = Pokedex.Pokemons.OrderBy(p => p.Id).ToList();
+                return View("Index", poke);
             } else { return View("PokemonBuilder", p); }
-            
-            return View("Index", Pokedex.Pokemons.ToList());
+
+           
         }
     }
 }
